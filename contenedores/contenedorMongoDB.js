@@ -12,61 +12,49 @@ class ContenedorMongo{
 
     async listar(id){
         try{
-            const docs = await this.coleccion.find({ ':id': id}, {__v: 0})
-            if(docs.length == 0){
+            return await this.coleccion.find({ ':id': id}, {__v: 0})
+            /*if(docs.length == 0){
                 throw new Error(`Error al listar id no encontrado`)
             } else {
                 const result = renameField(asPOJO(docs[0]), '_id', 'id')
                 return result
-            }
+            }*/
         }catch(error){throw new Error(`Error al listar por id: ${error}`)}
     }
 
     async listarTodo(){
         try{
-            let docs = await this.coleccion.find({}, {__v: 0,}).lean()
-            docs = docs.map(asPOJO)
-            docs = docs.map(d => renameField(d, '_id', 'id'))
+            let docs = await this.coleccion.find()
             return docs
         }catch(error){throw new Error(`Error al listar: ${error}`)}
     }
 
     async guardar(nuevoElem){
         try{
-            let doc = await this.coleccion.create(nuevoElem)
-            doc = asPOJO(doc)
-            removeField(doc, '_id', 'id')
-            removeField(doc, '__v')
+            const nuevo = new this.coleccion(nuevoElem)
+            const doc = await nuevo.save()
             return doc
         }catch(error){throw new Error(`Error al guardar: ${error}`)}
     }
 
-    async actualizar(nuevoElem){
+    async actualizar(id, nuevoElem){
         try{
-            renameField(nuevoElem, 'id', '_id')
-            const { n, nModified } = await this.coleccion.replaceOne({'_id': nuevoElem._id}, nuevoElem)
-            if(n == 0 || nModified == 0){
-                throw new Error(`Error al actualizar: no encontrado`)
-            } else {
-                renameField(nuevoElem, '_id', 'id')
-                removeField(nuevoElem, '__v')
-                return asPOJO(nuevoElem)
-            }
+            const resultado = await this.coleccion.findByIdAndUpdate({ _id: id }, nuevoElem)
+            return resultado
         }catch(error){throw new Error(`Error al actualizar: ${error}`)}
     }
 
     async borrar(id){
         try{
-            const {n, nDeleted } = await this.coleccion.deleteOne({ '_id': id })
-            if(n == 0 || nDeleted == 0){
-                throw new Error(`Error al borrar: no encontrado`)
-            }
+            const resultado = await this.coleccion.findByIdAndDelete({ _id: id })
+            return result
         }catch(error){throw new Error(`Error al borrar: ${error}`)}
     }
 
     async borrarTodos(){
         try{
-            await this.coleccion.deleteMany({})
+            const resultado = await this.coleccion.deleteMany({})
+            return resultado
         }catch(error){throw new Error(`Error al borrar: ${error}`)}
     }
 }

@@ -16,8 +16,6 @@ const app = express()
 
 const esAdmin = true
 
-//47.20
-
 function noEsAdmin(ruta, metodo){
     const error = {
         error: -1
@@ -64,4 +62,33 @@ productosRouter.delete('/:id', async(req, res) => {
 
 productosRouter.delete('/', async(req, res) => {
     res.JSON(await productoApi.borrarTodos())
+})
+
+
+/* Carritos */
+const carritoRouter = new Router()
+
+carritoRouter.get('/', async (req, res) => {
+    const productos = await carritosApi.listarTodos()
+    res.JSON(productos)
+})
+
+carritoRouter.get('/:id', async(req, res) => {
+    res.JSON(await carritosApi.listar(req.params.id))
+})
+
+carritoRouter.post('/', async(req, res) => {
+    res.JSON(await carritosApi.guardar(req.body))
+})
+
+carritoRouter.put('/:id', async(req, res) => {
+    res.JSON(await carritosApi.actualizar(req.body))
+})
+
+carritoRouter.delete('/:id', async(req, res) => {
+    res.JSON(await carritosApi.borrar(req.params.id))  
+})
+
+carritoRouter.delete('/', async(req, res) => {
+    res.JSON(await carritosApi.borrarTodos())
 })

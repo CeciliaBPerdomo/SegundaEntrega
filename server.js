@@ -92,3 +92,10 @@ carritoRouter.delete('/:id', async(req, res) => {
 carritoRouter.delete('/', async(req, res) => {
     res.JSON(await carritosApi.borrarTodos())
 })
+
+
+const PORT = 8080
+const srv = app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${srv.address().port}`)
+})
+srv.on('error', error => console.log(`Error en el servidor ${error}`))

@@ -10,7 +10,7 @@ const { Router } = express
 import {
     productosDAO as productoApi,
     carritosDAO as carritosApi,
-} from './daos/index'
+} from './daos/index.js'
 
 const app = express()
 

@@ -5,7 +5,9 @@ npm i firebase-admin
 npm i express
 */
 import express from "express";
+import dotenv from 'dotenv'
 const { Router } = express
+dotenv.config()
 
 import {
     productosDAO as productoApi,
@@ -38,6 +40,7 @@ function soloAdmin(req, res, next){
 
 /* Productos */
 const productosRouter = new Router()
+app.use('/api/producto', routerProducto)
 
 productosRouter.get('/', async (req, res) => {
     const productos = await productoApi.listarTodos()
@@ -67,6 +70,7 @@ productosRouter.delete('/', async(req, res) => {
 
 /* Carritos */
 const carritoRouter = new Router()
+app.use('/api/carrito', routerRouter)
 
 carritoRouter.get('/', async (req, res) => {
     const productos = await carritosApi.listarTodos()

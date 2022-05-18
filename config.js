@@ -12,7 +12,7 @@ const config = {
     mongoDB: {
         url: '',
         options: {
-            useNewUrlPaser: true,
+            //useNewUrlPaser: true,
             useUnifiedTopology: true
         }
     }, 

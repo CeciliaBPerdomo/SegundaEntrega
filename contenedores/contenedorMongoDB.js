@@ -2,7 +2,7 @@ import mongoose, { mongo } from "mongoose";
 import config from '../config';
 import { asPOJO, renameField, removeField } from '../utils/objectUtils.js'
 
-await mongoose.connect(config.mongodb.cnxStr, config.mongodb.options)
+await mongoose.connect(config.mongoDB.url, config.mongoDB.options)
 
 class ContenedorMongo{
 
@@ -13,12 +13,6 @@ class ContenedorMongo{
     async listar(id){
         try{
             return await this.coleccion.find({ ':id': id}, {__v: 0})
-            /*if(docs.length == 0){
-                throw new Error(`Error al listar id no encontrado`)
-            } else {
-                const result = renameField(asPOJO(docs[0]), '_id', 'id')
-                return result
-            }*/
         }catch(error){throw new Error(`Error al listar por id: ${error}`)}
     }
 

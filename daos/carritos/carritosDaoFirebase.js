@@ -1,4 +1,4 @@
-import carrito from '../../contenedores/contenedorFireBase'
+import carrito from '../../contenedores/contenedorFireBase.js'
 
 class carritoDaoFirebase extends carrito{
     constructor(db) {

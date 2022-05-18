@@ -1,4 +1,4 @@
-import contenedorArchivo from '../../contenedores/contenedorArchivo'
+import contenedorArchivo from '../../contenedores/contenedorArchivo.js'
 
 class ProductoDaoArchivo extends contenedorArchivo{
     constructor(){

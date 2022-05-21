@@ -1,13 +1,17 @@
 import 'dotenv/config'
-
+import config from '../config.js'
 import ProductosDaoMongoDB from './productos/ProductosDaoMongoDB.js'
 import carritoDaoMongoDB from './carritos/carritosDaoMongoDB.js'
+import mongoose from 'mongoose'
 
 
 let productosDAO
 let carritosDAO
 
 console.log(process.env.PERSISTENCIA)
+const db = async() => {
+    await mongoose.connect(config.mongoDB.url, config.mongoDB.options)
+}
 
 switch (process.env.PERSISTENCIA){
     case 'json': 
@@ -18,8 +22,8 @@ switch (process.env.PERSISTENCIA){
         carritosDAO = new CarritosDaoArchivo()
         break
     case 'mongodb': 
-        const productosDAO = new ProductosDaoMongoDB()
-        const carritosDAO = new carritoDaoMongoDB()
+        productosDAO = new ProductosDaoMongoDB(db)
+        carritosDAO = new carritoDaoMongoDB()
         break
     default:
         const { default: ProductosDaoMem } = await import('./productos/productosDaoMem.js')

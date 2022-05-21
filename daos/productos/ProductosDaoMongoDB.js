@@ -17,34 +17,36 @@ export default class Productos extends mongoDB {
     constructor(connection) {
         super(connection)
     }
-}
 
-listarTodo = async () => await model.find({})
 
-listar = async (id) => {
-    const result = await model.find({ ':id': id}, {__v: 0})
-    return result[0]
-}
+    listarTodo = async () => {await model.find({})}
 
-guardar = async (newProd) => {
-    const nuevoProd = new model(newProd)
-    await nuevoProd.save()
-}
+    listar = async (id) => {
+        const result = await model.find({ ':id': id}, {__v: 0})
+        return result[0]
+    }
 
-borrar = async ({ id }) => {
-    await model.deleteOne( { _id: id})
-}
+    guardar = async (newProd) => {
+        console.log(newProd)
+        const nuevoProd = new model(newProd)
+        await nuevoProd.save()
+    }
 
-actualizar = async (producto) => {
-    const { id, nombre, descripcion, codigo, foto, precio, stock } = producto
-    await model.updateOne({ _id: id }, {
-        $set: {
-            nombre: nombre,
-            descripcion: descripcion,
-            codigo: codigo,
-            foto: foto,
-            precio: precio,
-            stock: stock
-        }
-    }) 
+    borrar = async ({ id }) => {
+        await model.deleteOne( { _id: id})
+    }
+
+    actualizar = async (producto) => {
+        const { id, nombre, descripcion, codigo, foto, precio, stock } = producto
+        await model.updateOne({ _id: id }, {
+            $set: {
+                nombre: nombre,
+                descripcion: descripcion,
+                codigo: codigo,
+                foto: foto,
+                precio: precio,
+                stock: stock
+            }
+        }) 
+    }
 }

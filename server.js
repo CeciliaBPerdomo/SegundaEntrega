@@ -16,7 +16,7 @@ import {
 
 const app = express()
 
-const esAdmin = true
+/*const esAdmin = true
 
 function noEsAdmin(ruta, metodo){
     const error = {
@@ -36,65 +36,68 @@ function soloAdmin(req, res, next){
     }else{
         next()
     }
-}
+}*/
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 /* Productos */
 const productosRouter = new Router()
-app.use('/api/producto', routerProducto)
+app.use('/api/producto', productosRouter)
 
 productosRouter.get('/', async (req, res) => {
     const productos = await productoApi.listarTodos()
-    res.JSON(productos)
+    res.json(productos)
 })
 
 productosRouter.get('/:id', async(req, res) => {
-    res.JSON(await productoApi.listar(req.params.id))
+    res.json(await productoApi.listar(req.params.id))
 })
 
 productosRouter.post('/', async(req, res) => {
-    res.JSON(await productoApi.guardar(req.body))
+    res.json(await productoApi.guardar(req.body))
 })
 
 productosRouter.put('/:id', async(req, res) => {
-    res.JSON(await productoApi.actualizar(req.body))
+    res.json(await productoApi.actualizar(req.body))
 })
 
 productosRouter.delete('/:id', async(req, res) => {
-    res.JSON(await productoApi.borrar(req.params.id))  
+    res.json(await productoApi.borrar(req.params.id))  
 })
 
 productosRouter.delete('/', async(req, res) => {
-    res.JSON(await productoApi.borrarTodos())
+    res.json(await productoApi.borrarTodos())
 })
 
 
 /* Carritos */
 const carritoRouter = new Router()
-app.use('/api/carrito', routerRouter)
+app.use('/api/carrito', carritoRouter)
 
 carritoRouter.get('/', async (req, res) => {
     const productos = await carritosApi.listarTodos()
-    res.JSON(productos)
+    res.json(productos)
 })
 
 carritoRouter.get('/:id', async(req, res) => {
-    res.JSON(await carritosApi.listar(req.params.id))
+    res.json(await carritosApi.listar(req.params.id))
 })
 
 carritoRouter.post('/', async(req, res) => {
-    res.JSON(await carritosApi.guardar(req.body))
+    res.json(await carritosApi.guardar(req.body))
 })
 
 carritoRouter.put('/:id', async(req, res) => {
-    res.JSON(await carritosApi.actualizar(req.body))
+    res.json(await carritosApi.actualizar(req.body))
 })
 
 carritoRouter.delete('/:id', async(req, res) => {
-    res.JSON(await carritosApi.borrar(req.params.id))  
+    res.json(await carritosApi.borrar(req.params.id))  
 })
 
 carritoRouter.delete('/', async(req, res) => {
-    res.JSON(await carritosApi.borrarTodos())
+    res.json(await carritosApi.borrarTodos())
 })
 
 

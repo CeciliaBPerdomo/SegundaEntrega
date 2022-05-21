@@ -1,8 +1,7 @@
-import mongoose, { mongo } from "mongoose";
-import config from '../config';
-import { asPOJO, renameField, removeField } from '../utils/objectUtils.js'
+import mongoose from "mongoose";
+import config from '../config.js';
 
-await mongoose.connect(config.mongoDB.url, config.mongoDB.options)
+//await mongoose.connect(config.mongoDB.url, config.mongoDB.options)
 
 class ContenedorMongo{
 

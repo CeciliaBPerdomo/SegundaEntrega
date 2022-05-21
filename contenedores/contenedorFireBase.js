@@ -1,11 +1,3 @@
-/*const admin = require("firebase-admin");
-const serviceAccount = require("./proyectoprueba-f1806-firebase-adminsdk-edn03-3704dc6bc2.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-
-console.log('Base de datos Firebase conectada')*/
 const data = admin.firestore()
 
 class FirebaseDB {

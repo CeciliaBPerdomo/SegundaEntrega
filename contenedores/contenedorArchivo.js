@@ -1,5 +1,5 @@
 import { promises as fs} from 'fs'
-import config from '../config'
+import config from '../config.js'
 
 class ContenedorArchivo {
 

@@ -4,13 +4,12 @@ import ProductosDaoMongoDB from './productos/ProductosDaoMongoDB.js'
 import carritoDaoMongoDB from './carritos/carritosDaoMongoDB.js'
 import mongoose from 'mongoose'
 
-
-let productosDAO
-let carritosDAO
+let obj = {}
 
 console.log(process.env.PERSISTENCIA)
+
 const db = async() => {
-    await mongoose.connect(config.mongoDB.url, config.mongoDB.options)
+    return await mongoose.connect(config.mongoDB.url, config.mongoDB.options)
 }
 
 switch (process.env.PERSISTENCIA){
@@ -22,8 +21,11 @@ switch (process.env.PERSISTENCIA){
         carritosDAO = new CarritosDaoArchivo()
         break
     case 'mongodb': 
-        productosDAO = new ProductosDaoMongoDB(db)
-        carritosDAO = new carritoDaoMongoDB()
+        let productosDAO = new ProductosDaoMongoDB(db)
+        let carritosDAO = new carritoDaoMongoDB()
+
+        obj.productosDAO = productosDAO
+        obj.carritosDAO = carritosDAO
         break
     default:
         const { default: ProductosDaoMem } = await import('./productos/productosDaoMem.js')
@@ -34,4 +36,4 @@ switch (process.env.PERSISTENCIA){
         break
 }    
 
-export { productosDAO, carritosDAO}
+export { obj }

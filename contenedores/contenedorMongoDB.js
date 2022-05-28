@@ -30,6 +30,14 @@ class ContenedorMongo{
         }catch(error){throw new Error(`Error al guardar: ${error}`)}
     }
 
+    async guardarProd(id, producto){
+        try{
+            const resultado = await this.coleccion.find({ _id: id })
+            const nuevo = new resultado.save(producto)
+            return nuevo
+        }catch(error){throw new Error(`Error al guardar: ${error}`)}
+    }
+
     async actualizar(id, nuevoElem){
         try{
             const resultado = await this.coleccion.findByIdAndUpdate({ _id: id }, nuevoElem)

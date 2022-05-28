@@ -36,8 +36,8 @@ export default class Productos extends mongoDB {
         await model.deleteOne( { _id: id})
     }
 
-    actualizar = async (producto) => {
-        const { id, nombre, descripcion, codigo, foto, precio, stock } = producto
+    actualizar = async (producto, id) => {
+        const { nombre, descripcion, codigo, foto, precio, stock } = producto
         await model.updateOne({ _id: id }, {
             $set: {
                 nombre: nombre,

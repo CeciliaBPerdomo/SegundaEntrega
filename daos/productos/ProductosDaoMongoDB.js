@@ -18,7 +18,6 @@ export default class Productos extends mongoDB {
         super(connection)
     }
 
-
     listarTodo = async () => {await model.find({})}
 
     listar = async (id) => {

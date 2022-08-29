@@ -1,4 +1,3 @@
-//import ContenedorMongoDB from '../../contenedores/contenedorMongoDB.js'
 import mongoDB from '../../DB/dbMongo.js'
 import mongoose from 'mongoose'
 
@@ -18,7 +17,7 @@ export default class Productos extends mongoDB {
         super(connection)
     }
 
-    listarTodo = async () => {await model.find({})}
+    listarTodo = async () => { return await model.find({}) }
 
     listar = async (id) => {
         const result = await model.find({ ':id': id}, {__v: 0})
@@ -31,7 +30,7 @@ export default class Productos extends mongoDB {
         await nuevoProd.save()
     }
 
-    borrar = async ({ id }) => {
+    borrar = async ( id ) => {
         await model.deleteOne( { _id: id})
     }
 

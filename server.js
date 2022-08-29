@@ -9,35 +9,9 @@ import dotenv from 'dotenv'
 const { Router } = express
 dotenv.config()
 
-import {
-    //productosDAO as productoApi,
-    //carritosDAO as carritosApi,
-    obj
-} from './daos/index.js'
+import { obj } from './daos/index.js'
 
 const app = express()
-
-/*const esAdmin = true
-
-function noEsAdmin(ruta, metodo){
-    const error = {
-        error: -1
-    }
-    if(ruta && metodo){
-        error.descripcion = `ruta '${ruta}' metodo '${metodo}' no autorizado`
-    } else {
-        error.descripcion = 'no autorizado'
-    }
-    return error
-}
-
-function soloAdmin(req, res, next){
-    if(!esAdmin){
-        res.JSON(noEsAdmin())
-    }else{
-        next()
-    }
-}*/
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -67,11 +41,6 @@ productosRouter.delete('/:id', async(req, res) => {
     res.json(await obj.productosDAO.borrar(req.params.id))  
 })
 
-productosRouter.delete('/', async(req, res) => {
-    res.json(await obj.productosDAO.borrarTodos())
-})
-
-
 /* Carritos */
 const carritoRouter = new Router()
 app.use('/api/carrito', carritoRouter)
@@ -90,7 +59,7 @@ carritoRouter.post('/', async(req, res) => {
     res.json(await obj.carritosDAO.guardar(req.body))
 })
 
-carritoRouter.post('/guardar/:id/productos', async(req, res) => {
+carritoRouter.post('/guardar/:id/productos/:pid', async(req, res) => {
     const { id } = req.params
     const producto = req.body
     res.json(await obj.carritosDAO.guardarProd(id, producto))

@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 import config from '../config.js';
 
-//await mongoose.connect(config.mongoDB.url, config.mongoDB.options)
-
 class ContenedorMongo{
 
     constructor(nombreColeccion, esquema){

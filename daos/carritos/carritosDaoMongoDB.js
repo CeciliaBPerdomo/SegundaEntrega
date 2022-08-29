@@ -1,5 +1,13 @@
 import ContenedorMongo from "../../contenedores/contenedorMongoDB.js";
-//const model = mongoose.model('carrito', schema)
+import mongoose from "mongoose";
+
+const carritoSchema = new mongoose.Schema({
+    id: { type: Number, required: true },
+	timestamp: { type: Number},
+	productos: { type: Array },
+})
+
+const model = mongoose.model('carrito', carritoSchema)
 class carritosDaoMongoDB extends ContenedorMongo {
     constructor() {
         super('carritos', {
@@ -13,8 +21,8 @@ class carritosDaoMongoDB extends ContenedorMongo {
     }
 
     /* Muestra el carrito completo */
-    async listarTodo() {
-        return await super.listarTodo()
+    async listaTodo() {
+        return await super.listaTodo()
     }
 
     /* Muestra el carrito por el id */ 

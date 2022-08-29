@@ -22,7 +22,7 @@ switch (process.env.PERSISTENCIA){
         break
     case 'mongodb': 
         let productosDAO = new ProductosDaoMongoDB(db)
-        let carritosDAO = new carritoDaoMongoDB()
+        let carritosDAO = new carritoDaoMongoDB(db)
 
         obj.productosDAO = productosDAO
         obj.carritosDAO = carritosDAO
